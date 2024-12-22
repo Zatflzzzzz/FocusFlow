@@ -1,11 +1,11 @@
-package com.project.FocusFlow.database.models;
+package com.project.FocusFlow.database.model;
 
 import lombok.Data;
 
 import java.sql.Date;
 
 @Data
-public class Action {
+public abstract class Action {
     private int id;
     private String title;
     private String timeToComplete;

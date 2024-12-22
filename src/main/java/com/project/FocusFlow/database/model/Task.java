@@ -1,9 +1,11 @@
-package com.project.FocusFlow.database.models;
+package com.project.FocusFlow.database.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class Task extends Action{
     private int id;

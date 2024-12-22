@@ -1,4 +1,4 @@
-package com.project.FocusFlow.database.models;
+package com.project.FocusFlow.database.model;
 
 import lombok.Data;
 
