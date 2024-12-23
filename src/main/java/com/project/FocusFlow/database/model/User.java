@@ -8,7 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table("Users")
+@Table("users")
 public class User extends Person {
     @Id
     private Integer id;

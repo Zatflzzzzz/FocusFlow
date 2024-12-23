@@ -2,11 +2,13 @@ package com.project.FocusFlow.database.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Table("Admins")
 public class Admin extends Person{
     private int id;
     private int permissionLevel;
