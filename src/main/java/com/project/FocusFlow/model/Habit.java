@@ -1,4 +1,4 @@
-package com.project.FocusFlow.database.model;
+package com.project.FocusFlow.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,30 +9,33 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table("habits")
+@Table("habit")
 public class Habit extends Action{
     @Id
     private Integer id;
-    private String timeToComplete;
+    private LocalTime timeToComplete;
+    private Date dueDate;
 
-    @Column("person_id")
-    private AggregateReference<User, Integer> person;
+    @Column("user_id")
+    private AggregateReference<User, Integer> user;
 
     @MappedCollection(idColumn = "habit_id")
-    private Set<HabitEntries> habitEntries = new HashSet<>();
+    private Set<HabitEntry> habitEntries = new HashSet<>();
 
-    public Habit(String title, Date dueDate, String description, String timeToComplete, AggregateReference<User, Integer> person) {
+    public Habit(String title, Date dueDate, String description, LocalTime timeToComplete, AggregateReference<User, Integer> user) {
         super(title, dueDate, description);
         this.timeToComplete = timeToComplete;
-        this.person = person;
+        this.dueDate = dueDate;
+        this.user = user;
     }
 
-    public void addHabitEntry(HabitEntries entry) {
+    public void addEntry(HabitEntry entry) {
         habitEntries.add(entry);
     }
 }

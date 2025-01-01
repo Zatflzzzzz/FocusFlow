@@ -1,4 +1,4 @@
-package com.project.FocusFlow.database.model;
+package com.project.FocusFlow.model;
 
 import lombok.Data;
 
@@ -8,29 +8,26 @@ import java.sql.Date;
 @Data
 public abstract class Action {
     private String title;
-    private Date dueDate;
     private String description;
-    private LocalDateTime updatedDate;
-    private LocalDateTime created_at;
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
 
     Action(){}
 
     public Action(String title, Date dueDate, String description) {
         this.title = title;
-        this.dueDate = dueDate;
         this.description = description;
-        this.updatedDate = LocalDateTime.now();
-        this.created_at = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Action{" +
                 "Title='" + title + '\'' +
-                ", dueDate=" + dueDate +
                 ", description='" + description + '\'' +
-                ", updatedDate=" + updatedDate +
-                ", created_at=" + created_at +
+                ", updatedDate=" + updatedAt +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }
