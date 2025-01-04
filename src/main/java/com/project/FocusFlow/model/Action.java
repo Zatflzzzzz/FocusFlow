@@ -20,14 +20,4 @@ public abstract class Action {
         this.updatedAt = LocalDateTime.now();
         this.createdAt = LocalDateTime.now();
     }
-
-    @Override
-    public String toString() {
-        return "Action{" +
-                "Title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", updatedDate=" + updatedAt +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }

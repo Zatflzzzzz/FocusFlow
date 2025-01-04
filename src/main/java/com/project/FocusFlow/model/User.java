@@ -1,14 +1,14 @@
 package com.project.FocusFlow.model;
 
-import com.project.FocusFlow.model.enums.Language;
-import com.project.FocusFlow.model.enums.Themes;
+import com.project.FocusFlow.enums.Language;
+import com.project.FocusFlow.enums.Themes;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table("user")
 public class User extends Person {
@@ -16,21 +16,18 @@ public class User extends Person {
     private Integer id;
     private String status;
     private int numberOfViolations;
-    private int accessLevel;
+    private String role; // ROLE_ADMIN & ROLE_USER
 
     @MappedCollection(idColumn = "user_id")
-        private Settings settings = new Settings(false, Themes.DARK, Language.RU);
+    private Settings settings;
 
     public User(String email, String password, String username, String role, String telegramLink,
-                String profilePicture, String status, int numberOfViolations, int accessLevel) {
+                String profilePicture, String status, int numberOfViolations) {
 
-        super(email, password, username, role, telegramLink, profilePicture);
+        super(email, password, username, telegramLink, profilePicture);
         this.status = status;
         this.numberOfViolations = numberOfViolations;
-        this.accessLevel = accessLevel;
-    }
-
-    public int getId(){
-        return id;
+        this.role = role;
+        this.settings = new Settings(false, Themes.DARK, Language.RU);
     }
 }

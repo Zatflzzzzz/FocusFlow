@@ -1,4 +1,4 @@
-package com.project.FocusFlow.model.enums;
+package com.project.FocusFlow.enums;
 
 public enum Themes {
     DARK, LIGHT, SYSTEM

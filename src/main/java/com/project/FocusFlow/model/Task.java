@@ -1,7 +1,7 @@
 package com.project.FocusFlow.model;
 
-import com.project.FocusFlow.model.enums.Priority;
-import com.project.FocusFlow.model.enums.Category;
+import com.project.FocusFlow.enums.Priority;
+import com.project.FocusFlow.enums.Category;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;

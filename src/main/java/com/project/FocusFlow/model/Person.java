@@ -10,7 +10,6 @@ public abstract class Person{
     private String email;
     private String password;
     private String username;
-    private String role;
     private String telegramLink;
     private String profilePicture;
     private LocalDateTime lastAction;
@@ -18,11 +17,10 @@ public abstract class Person{
 
     Person(){}
 
-    public Person(String email, String password, String username, String role, String telegramLink, String profilePicture) {
+    public Person(String email, String password, String username, String telegramLink, String profilePicture) {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.role = role;
         this.telegramLink = telegramLink;
         this.profilePicture = profilePicture;
         this.lastAction = LocalDateTime.now();
