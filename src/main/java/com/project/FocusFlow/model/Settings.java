@@ -1,7 +1,7 @@
 package com.project.FocusFlow.model;
 
-import com.project.FocusFlow.enums.Language;
-import com.project.FocusFlow.enums.Themes;
+import com.project.FocusFlow.model.enums.Language;
+import com.project.FocusFlow.model.enums.Themes;
 import lombok.Data;
 import org.springframework.data.relational.core.mapping.Table;
 
