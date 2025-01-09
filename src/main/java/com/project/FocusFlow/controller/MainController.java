@@ -4,6 +4,7 @@ import com.project.FocusFlow.model.User;
 import com.project.FocusFlow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-    @RequestMapping("/secured")
+@RequestMapping("/secured")
 public class MainController {
     private UserService userService;
 
@@ -21,6 +22,7 @@ public class MainController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getBasicInfo")
     public String getInfoAboutYourself(Principal principal) {
         if (principal != null) {
@@ -31,8 +33,8 @@ public class MainController {
     }
 
     @GetMapping("/get/user")
-    public Principal getInfo(Principal principal) {
-        return principal;
+    public ResponseEntity<Principal> getInfo(Principal principal) {
+        return ResponseEntity.ok(principal);
     }
 
     @GetMapping("/get/allUsers")

@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS "user" (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     username VARCHAR(255) NOT NULL,
-    role VARCHAR(50) DEFAULT 'ROLE_USER' CHECK (role IN ('ROLE_USER', 'ROLE_ADMIN')),
+    role VARCHAR(50) DEFAULT 'USER' CHECK (role IN ('ROLE_USER', 'ROLE_ADMIN')),
     telegram_link VARCHAR(50) NOT NULL,
     profile_picture VARCHAR(255),
     status VARCHAR(50) NOT NULL,

@@ -23,9 +23,9 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject((userDetails.getUsername()))
-                .claim("id", userDetails.getId())      // Добавляем ID
-                .claim("email", userDetails.getEmail()) // Добавляем email
-                .claim("role", userDetails.getRole())   // Добавляем роль
+                .claim("id", userDetails.getId())
+                .claim("email", userDetails.getEmail())
+                .claim("role", userDetails.getRole())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date().getTime() + expirationMs)))
                 .signWith(SignatureAlgorithm.HS256, secret)

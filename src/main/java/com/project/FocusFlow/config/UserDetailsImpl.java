@@ -1,9 +1,11 @@
 package com.project.FocusFlow.config;
 
 import com.project.FocusFlow.model.User;
+import com.project.FocusFlow.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -16,7 +18,7 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     private String username;
     private String password;
-    private String role;
+    private Role role;
 
     public static UserDetailsImpl build(User user) {
         return new UserDetailsImpl(
@@ -30,7 +32,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(role);
     }
 
     @Override

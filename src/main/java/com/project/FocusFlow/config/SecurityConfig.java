@@ -1,5 +1,6 @@
 package com.project.FocusFlow.config;
 
+import com.project.FocusFlow.security.RateLimitingFilter;
 import com.project.FocusFlow.security.UserDetailsServiceImpl;
 import com.project.FocusFlow.security.TokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,15 +24,15 @@ import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final TokenFilter tokenFilter;
+    RateLimitingFilter rateLimitingFilter;
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, TokenFilter tokenFilter) {
-        this.userDetailsServiceImpl = userDetailsServiceImpl;
+    public SecurityConfig(TokenFilter tokenFilter, RateLimitingFilter rateLimitingFilter) {
         this.tokenFilter = tokenFilter;
+        this.rateLimitingFilter = rateLimitingFilter;
     }
 
     @Bean
@@ -54,8 +56,23 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/secured/getBasicInfo").permitAll()
                         .requestMatchers("/secured/**").authenticated()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().permitAll())
-                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .formLogin(login -> login
+                        .loginPage("/login") // Указываем путь к странице логина
+                        .loginProcessingUrl("/login") // URL для обработки формы логина (совпадает с th:action в HTML)
+                        .defaultSuccessUrl("/secured/getBasicInfo", true) // Перенаправление после успешного входа
+                        .failureUrl("/login?error=true") // Перенаправление при ошибке входа
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // URL для logout
+                        .logoutSuccessUrl("/login?logout=true") // Перенаправление после успешного выхода
+                        .permitAll())
+                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(rateLimitingFilter,
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
